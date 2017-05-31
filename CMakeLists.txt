@@ -1,0 +1,14 @@
+cmake_minimum_required(VERSION 3.5)
+# project(python wrappers for fbank computation)
+
+set(CMAKE_CXX_STANDARD 11)
+set(KALDI_DIR /home/wujian/Document/git/kaldi)
+set(BOOST_LIB /usr/local/lib)
+set(PYTHON_INC /usr/include/python2.7)
+
+add_definitions(-O3 -g -std=c++11 -DHAVE_CLAPACK -pthread)
+include_directories(${PYTHON_INC} ${KALDI_DIR}/tools/openfst/include ${KALDI_DIR}/tools/CLAPACK ${KALDI_DIR}/src)
+link_directories(${KALDI_DIR}/src/lib ${BOOST_LIB})
+set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/../)
+add_subdirectory(PyFbank)
+add_subdirectory(PyNnet1)

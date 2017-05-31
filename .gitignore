@@ -1,0 +1,6 @@
+*.nnet
+*.global
+build
+PyFbank/.idea
+PyNnet1/.idea
+
