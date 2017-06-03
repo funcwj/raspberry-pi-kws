@@ -10,8 +10,9 @@ BOOST_PYTHON_MODULE(pynnet1) {
     np::initialize();
     class_<NnetWrapper>("nnet1", init<std::string, optional<std::string> >())
     .def("predict", &NnetWrapper::Predict) \
-        .def("postprocess", &NnetWrapper::PostProcess) \
+    .def("postprocess", &NnetWrapper::PostProcess) \
     .def("debug", &NnetWrapper::SetDebug) \
-        .def("threshold", &NnetWrapper::SetSpotThreshold);
+    .def("threshold", &NnetWrapper::SetSpotThreshold) \
+    .def("windowsize", &NnetWrapper::SetWindowSize);
 
 }

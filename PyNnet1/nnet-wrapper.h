@@ -25,12 +25,13 @@ public:
     NnetWrapper(std::string nnet_mdl, std::string mat_in);
     NnetWrapper(std::string nnet_mdl);
     void FeedForward(np::ndarray &vector);
-    void PostProcess(np::ndarray &vector);
-    void UpdateStartBase();
+    void PostProcess(np::ndarray &vector, int32 method_idx);
+    void UpdateStartBase(int32 method_idx);
     BaseFloat ApplySegmentDTW();
-    bool IsSpotting();
+    bool IsSpotting(int32 eval_method);
     void SetDebug(bool debug);
     void SetSpotThreshold(BaseFloat thres);
+    void SetWindowSize(int32 wnd_size);
     np::ndarray Predict(np::ndarray &vector);
 private:
     // kaldi nnet object

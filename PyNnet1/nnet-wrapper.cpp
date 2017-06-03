@@ -51,14 +51,23 @@ NnetWrapper::NnetWrapper(std::string nnet_mdl) {
     nnet_.Read(nnet_mdl);
 }
 
-bool NnetWrapper::IsSpotting() {
-//    BaseFloat sum = 0.0;
-    for (float score: score_buffer_)
-        // sum += score
-        if(score >= spot_threshold_)
-            return false;
-    return true;
-//    return sum / score_buffer_.size() <= spot_threshold_;
+bool NnetWrapper::IsSpotting(int32 eval_method) {
+    BaseFloat sum = 0.0;
+    for (float score: score_buffer_) {
+        switch(eval_method){
+        case 1:
+            sum += score;
+            break;
+        case 2:
+            if(score >= spot_threshold_)
+                return false;
+            break;
+        default:
+            KALDI_ERR << "unknown evaluate method[support 1/2 only]";
+            break;
+        }
+    }
+    return eval_method == 1 ? sum / score_buffer_.size() <= spot_threshold_: true;
 }
 
 void NnetWrapper::SetDebug(bool debug) {
@@ -67,6 +76,10 @@ void NnetWrapper::SetDebug(bool debug) {
 
 void NnetWrapper::SetSpotThreshold(BaseFloat thres) {
     spot_threshold_ = thres;
+}
+
+void NnetWrapper::SetWindowSize(int32 wnd_size) {
+    window_size_ = wnd_size;
 }
 
 void NnetWrapper::FeedForward(np::ndarray &vector) {
@@ -119,7 +132,7 @@ BaseFloat NnetWrapper::ApplySegmentDTW() {
     return (*accumulate_cost_)(prev_state, segment_->NumRows() - 1) / (*accumulate_step_)(prev_state, segment_->NumRows() - 1);
 }
 
-void NnetWrapper::UpdateStartBase() {
+void NnetWrapper::UpdateStartBase(int32 method_idx) {
     // set next position to replace
     // same as 'start_base_ = (start_base_ + 1) % segment_->NumRows()'
     start_base_ = Next(start_base_, segment_->NumRows());
@@ -131,10 +144,11 @@ void NnetWrapper::UpdateStartBase() {
             std::cout << score << std::endl;
         score_buffer_.push_back(score);
         if (score_buffer_.size() == window_size_) {
-            if (IsSpotting() && cur_state_ == 0) {
+            if (IsSpotting(method_idx) && cur_state_ == 0) {
                 cur_state_ = 1;
+                std::cout << "Spotting!" << std::endl;
                 KALDI_LOG << "Spotting!";
-            } else if (!IsSpotting()){
+            } else if (!IsSpotting(method_idx)){
                 cur_state_ = 0;
             }
             score_buffer_.erase(score_buffer_.begin());
@@ -145,7 +159,7 @@ void NnetWrapper::UpdateStartBase() {
     }
 }
 
-void NnetWrapper::PostProcess(np::ndarray &vector) {
+void NnetWrapper::PostProcess(np::ndarray &vector, int32 method_idx) {
     FeedForward(vector);
     KALDI_ASSERT(nnet_out_.NumRows() == 1);
     CuVector<BaseFloat> dis;
@@ -156,7 +170,7 @@ void NnetWrapper::PostProcess(np::ndarray &vector) {
     CuSubVector<BaseFloat> sub((*segment_), start_base_);
     sub.CopyFromVec(dis);
 
-    UpdateStartBase();
+    UpdateStartBase(method_idx);
 }
 
 np::ndarray NnetWrapper::Predict(np::ndarray &vector) {
