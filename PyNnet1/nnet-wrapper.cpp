@@ -7,7 +7,15 @@ BaseFloat Cos(CuVectorBase<BaseFloat> &vec1, CuVectorBase<BaseFloat> &vec2) {
     return dot_product / mod_product;
 }
 
-void LogCos(CuMatrixBase<BaseFloat> &mat, CuVectorBase<BaseFloat> &vec, CuVector<BaseFloat> *dis) {
+BaseFloat KL(CuVectorBase<BaseFloat> &vec1, CuVectorBase<BaseFloat> &vec2) {
+    BaseFloat dis = 0.0;
+    for(int i = 0; i < vec1.Dim(); i++) {
+        dis += vec2(i) * Log(vec2(i) / vec1(i));
+    }
+    return dis;
+}
+
+void EvalDist(CuMatrixBase<BaseFloat> &mat, CuVectorBase<BaseFloat> &vec, CuVector<BaseFloat> *dis) {
     KALDI_ASSERT(mat.NumCols() == vec.Dim());
     dis->Resize(mat.NumRows());
     for (int i = 0; i < dis->Dim(); i++) {
@@ -15,6 +23,7 @@ void LogCos(CuMatrixBase<BaseFloat> &mat, CuVectorBase<BaseFloat> &vec, CuVector
         (*dis)(i) = -Log(Cos(sub, vec));
     }
 }
+
 
 int32 Next(int32 v, int32 round) {
     return (v + 1) % round;
@@ -165,7 +174,7 @@ void NnetWrapper::PostProcess(np::ndarray &vector, int32 method_idx) {
     CuVector<BaseFloat> dis;
 
     CuSubVector<BaseFloat> nnet_out_vec(nnet_out_, 0);
-    LogCos(template_, nnet_out_vec, &dis);
+    EvalDist(template_, nnet_out_vec, &dis);
 
     CuSubVector<BaseFloat> sub((*segment_), start_base_);
     sub.CopyFromVec(dis);

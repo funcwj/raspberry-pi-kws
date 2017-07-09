@@ -98,7 +98,4 @@ def main():
             expect_thread.start()
 
 if __name__ == "__main__":
-    if len(sys.argv) != 1:
-        print "redundant parameters..."
-        sys.exit(1)
     main()
