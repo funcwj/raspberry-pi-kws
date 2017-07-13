@@ -1,6 +1,7 @@
 *.nnet
 *.global
+*.so
 build
 PyFbank/.idea
 PyNnet1/.idea
-
+utils/.idea
