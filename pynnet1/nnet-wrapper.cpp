@@ -155,7 +155,7 @@ void NnetWrapper::UpdateStartBase(int32 method_idx) {
         if (score_buffer_.size() == window_size_) {
             if (IsSpotting(method_idx) && cur_state_ == 0) {
                 cur_state_ = 1;
-                std::cout << "Spotting!" << std::endl;
+                // std::cout << "Spotting!" << std::endl;
                 KALDI_LOG << "Spotting!";
             } else if (!IsSpotting(method_idx)){
                 cur_state_ = 0;

@@ -1,0 +1,36 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ExpectThread	../query_by_pc.py	/^class ExpectThread(threading.Thread):$/;"	kind:class	line:57
+ExpectThread	../query_by_raspberry.py	/^class ExpectThread(threading.Thread):$/;"	kind:class	line:50
+LEFT_CONTEXT	../query_by_pc.py	/^LEFT_CONTEXT = 10$/;"	kind:variable	line:16
+LEFT_CONTEXT	../query_by_raspberry.py	/^LEFT_CONTEXT = 10$/;"	kind:variable	line:18
+ListenThread	../query_by_pc.py	/^class ListenThread(threading.Thread):$/;"	kind:class	line:19
+ListenThread	../query_by_raspberry.py	/^class ListenThread(threading.Thread):$/;"	kind:class	line:22
+MAX_SIZE_OF_BUFFER	../query_by_pc.py	/^MAX_SIZE_OF_BUFFER = 1300$/;"	kind:variable	line:15
+MAX_SIZE_OF_BUFFER	../query_by_raspberry.py	/^MAX_SIZE_OF_BUFFER = 1300$/;"	kind:variable	line:17
+MAX_SIZE_OF_QUEUE	../query_by_pc.py	/^MAX_SIZE_OF_QUEUE = 200$/;"	kind:variable	line:14
+MAX_SIZE_OF_QUEUE	../query_by_raspberry.py	/^MAX_SIZE_OF_QUEUE = 200$/;"	kind:variable	line:16
+RIGHT_CONTEXT	../query_by_pc.py	/^RIGHT_CONTEXT = 5$/;"	kind:variable	line:17
+RIGHT_CONTEXT	../query_by_raspberry.py	/^RIGHT_CONTEXT = 5$/;"	kind:variable	line:19
+__del__	../query_by_pc.py	/^    def __del__(self):$/;"	kind:member	line:29
+__init__	../query_by_pc.py	/^    def __init__(self, queue):$/;"	kind:member	line:21
+__init__	../query_by_pc.py	/^    def __init__(self, queue):$/;"	kind:member	line:59
+__init__	../query_by_raspberry.py	/^    def __init__(self, queue):$/;"	kind:member	line:24
+__init__	../query_by_raspberry.py	/^    def __init__(self, queue):$/;"	kind:member	line:52
+blink	../blink_service.py	/^def blink():$/;"	kind:function	line:11
+blink_service.py	../blink_service.py	1;"	kind:file	line:1
+count_num_frames	../query_by_pc.py	/^    def count_num_frames(self, size):$/;"	kind:member	line:36
+main	../query_by_pc.py	/^def main():$/;"	kind:function	line:85
+main	../query_by_raspberry.py	/^def main():$/;"	kind:function	line:82
+query_by_pc.py	../query_by_pc.py	1;"	kind:file	line:1
+query_by_raspberry.py	../query_by_raspberry.py	1;"	kind:file	line:1
+run	../query_by_pc.py	/^    def run(self):$/;"	kind:member	line:40
+run	../query_by_pc.py	/^    def run(self):$/;"	kind:member	line:64
+run	../query_by_raspberry.py	/^    def run(self):$/;"	kind:member	line:34
+run	../query_by_raspberry.py	/^    def run(self):$/;"	kind:member	line:60
+stop	../query_by_pc.py	/^    def stop(self):$/;"	kind:member	line:32
+stop	../query_by_raspberry.py	/^    def stop(self):$/;"	kind:member	line:30

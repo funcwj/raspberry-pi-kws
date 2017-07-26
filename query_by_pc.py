@@ -60,6 +60,9 @@ class ExpectThread(threading.Thread):
         self.fbank_queue = queue
         threading.Thread.__init__(self)
         self.nnet1 = pynnet1.nnet1('final.nnet', 'templ/xinwenlianbo.post')
+        self.nnet1.debug(False)
+        self.nnet1.threshold(0.5)
+        self.nnet1.windowsize(8)
 
     def run(self):
         feats_len = 40
